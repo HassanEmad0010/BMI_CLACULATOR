@@ -5,6 +5,8 @@ import 'modules/app.dart';
 void main() {
 
     runApp(MaterialApp(
+
+      
       debugShowCheckedModeBanner: false,
       title: 'Navigation Basics',
       home: BMIapp(),
