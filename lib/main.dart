@@ -1,3 +1,8 @@
+
+//test git hub first editing in the code 
+
+
+
 import 'package:flutter/material.dart';
 import 'modules/app.dart';
 //import 'test2.dart';
@@ -6,7 +11,7 @@ void main() {
 
     runApp(MaterialApp(
 
-      
+
       debugShowCheckedModeBanner: false,
       title: 'Navigation Basics',
       home: BMIapp(),
