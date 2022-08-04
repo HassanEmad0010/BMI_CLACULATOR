@@ -10,6 +10,11 @@ import 'modules/app.dart';
 void main() {
 
     runApp(MaterialApp(
+      theme: ThemeData(
+        canvasColor: Colors.white,
+        //primarySwatch: Colors.teal,
+
+      ),
 
 
       debugShowCheckedModeBanner: false,

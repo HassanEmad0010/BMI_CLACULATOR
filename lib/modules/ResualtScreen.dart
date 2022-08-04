@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../componants/componants.sharedcomponant/componant.dart';
+
 class ResultScreen extends StatelessWidget {
 
   final int result;
@@ -36,7 +38,7 @@ class ResultScreen extends StatelessWidget {
 
 
 
-
+                  LinearProgressIndicator(),
                   Container(
                     height: 200,
 
@@ -60,44 +62,55 @@ class ResultScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  LinearProgressIndicator(),
+                  SizedBox(height: 30,
 
-                  SizedBox(height: 30,),
+                  ),
+
+
+
+
+                  ElevatedButton(
+                    child: const Text('What is this?'),
+                    onPressed: () {
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: 300,
+                            color: Colors.indigoAccent,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Column(
+                                    children: [
+                                      bmiInformation(),
+                                      ElevatedButton(
+                                        child: const Text('Close'),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+
+
+
+
 
                   //BMI referance
-                  Container(
-
-
-                    decoration: BoxDecoration(
-
-                      shape: BoxShape.rectangle ,
-                      color: Colors.lightBlue,
-                      borderRadius: BorderRadius.circular(20),
-
-
-                    ),
-
-                    width: 350,
-                    height: 150,
-                    child: const
-
-                    Center(
-                      child:
-
-                      Text(
-                              'below 18.5 – underweight range\n'
-                              '18.5 -> 24.9 –healthy weight range\n'
-                              '25 -> 29.9 –  overweight range\n'
-                              '30 -> 39.9 –  obese range\n',
-
-                        style: TextStyle(color: Colors.white70,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
 
 
 
-                      ),
-                    ),
-                  ),
+
 
 
                 ],
