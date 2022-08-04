@@ -100,8 +100,6 @@ class _BMIappState extends State<BMIapp> {
                                     color: Colors.black),
                               ),
 
-
-
                             ],
                           ),
                         ),
