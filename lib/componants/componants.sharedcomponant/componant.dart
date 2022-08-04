@@ -62,6 +62,8 @@ Widget bmiInformation ()
 
         Text(
 
+
+
           '<18.5 –> underweight range\n'
               '18.5 - 24.9 –> healthy weight range\n'
               '25  -  29.9 –> overweight range\n'
