@@ -24,7 +24,7 @@ class _BMIappState extends State<BMIapp> {
       Scaffold(
         appBar: AppBar(
           leading: const Icon(Icons.menu),
-          title: const Text("BMI APP"),
+          title: const Text("BMI Calculator"),
         ),
         body: Column(
           children: [
@@ -278,7 +278,7 @@ class _BMIappState extends State<BMIapp> {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                
+
                                 floatingButton(
                                     iconFloatingButton :Icon(Icons.add),
 
@@ -292,7 +292,7 @@ class _BMIappState extends State<BMIapp> {
 
                                 ),
 
-                                
+
                               ],
                             ),
                           ],

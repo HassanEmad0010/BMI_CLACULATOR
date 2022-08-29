@@ -53,17 +53,17 @@ class ResultScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Gender: ${isMale? 'Male' : 'Female'}  "  ,style:
-                          TextStyle(fontSize:30 ,color: Colors.white,),),
+                          const TextStyle(fontSize:30 ,color: Colors.white,),),
                           Text("Your age is: $age ",style:
-                          TextStyle(fontSize:30,fontWeight: FontWeight.w400 ,color: Colors.white),),
+                          const TextStyle(fontSize:30,fontWeight: FontWeight.w400 ,color: Colors.white),),
                           Text("Your BMI is: $result ",style:
-                          TextStyle(fontSize:30,fontWeight: FontWeight.w400,color: Colors.white ),),
+                          const TextStyle(fontSize:30,fontWeight: FontWeight.w400,color: Colors.white ),),
                         ],
                       ),
                     ),
                   ),
-                  LinearProgressIndicator(),
-                  SizedBox(height: 30,
+const                   LinearProgressIndicator(),
+                  const SizedBox(height: 30,
 
                   ),
 
