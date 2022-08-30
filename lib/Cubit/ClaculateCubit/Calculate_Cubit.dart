@@ -11,6 +11,7 @@ class CalculateCubit extends Cubit<CalculateState>{
 
   int calculateBmiMethode ({required double height, required double weight,})
   {
+    emit(ReloadCalculateState());
     double res = weight / pow(height / 100, 2);
     int resInt = res.round();
     emit(NavigationCalculateState());

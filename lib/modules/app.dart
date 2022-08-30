@@ -215,7 +215,7 @@ class BMIapp extends StatelessWidget {
                                     color: Colors.blueAccent),
                               ),
                               Text(
-                                "${BlocProvider.of<WeightCubit>(context).weight}",
+                                "${BlocProvider.of<WeightCubit>(context).weight.round()}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 40,
@@ -225,19 +225,22 @@ class BMIapp extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   floatingButton(
+
                                     iconFloatingButton: Icon(Icons.remove),
                                     floatingFunction: () {
                                      BlocProvider.of<WeightCubit>(context).getWeight(weight: 1, inc_dec: "D");
-                                    },
+                                    }, buttonTag: "weightMinusButton",
                                   ),
                                   const SizedBox(
                                     width: 10,
                                   ),
                                   floatingButton(
+
                                     iconFloatingButton: Icon(Icons.add),
                                     floatingFunction: () {
                                       BlocProvider.of<WeightCubit>(context).getWeight(weight: 1, inc_dec: "I");
                                     },
+                                    buttonTag: "weightAddButton",
                                   ),
                                 ],
                               ),
@@ -281,6 +284,8 @@ class BMIapp extends StatelessWidget {
                                     floatingFunction: () {
                                       BlocProvider.of<AgeCubit>(context).getAge(number: 1, inc_dec: "D");
                                     },
+                                    buttonTag: "ageminusButton",
+
                                   ),
                                   const SizedBox(
                                     width: 10,
@@ -290,6 +295,8 @@ class BMIapp extends StatelessWidget {
                                     floatingFunction: () {
                                      BlocProvider.of<AgeCubit>(context).getAge(number: 1, inc_dec: "I");
                                     },
+                                    buttonTag: "ageAddButton",
+
                                   ),
                                 ],
                               ),
@@ -303,23 +310,50 @@ class BMIapp extends StatelessWidget {
               ),
             ), //weight age
 
-            Container(
-              width: double.infinity,
-              color: Colors.blue,
-              child: MaterialButton(
-                height: 50,
+            BlocListener<CalculateCubit,CalculateState>(
+              listener: (BuildContext context,CalculateState state) {
+                if(state is InitialCalculateState)
+                  {
+                    print("intial state");
+                  }
+                else if (state is ReloadCalculateState)
+                  {
+                    print("reload state");
+                  }
+                else if(state is NavigationCalculateState)
+                  {
+                    print("Navigation state");
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return ResultScreen(
+                            result: result,
+                            age: BlocProvider.of<AgeCubit>(context).num,
+                            isMale: BlocProvider.of<GenderCubit>(context).genderIsMale,
+                        );
+                      }),
+                    );
+                  }
 
-                onPressed: () {
 
-                  result= BlocProvider.of<CalculateCubit>(context).calculateBmiMethode(
-                      weight: BlocProvider.of<WeightCubit>(context).weight,
-                      height:  BlocProvider.of<HeightCubit>(context).Height,
-                  );
+              },
+              child: Container(
+                width: double.infinity,
+                color: Colors.blue,
+                child: MaterialButton(
+                  height: 50,
 
-                },
-                child: const Text(
-                  "Calculate",
-                  style: TextStyle(color: Colors.white),
+                  onPressed: () {
+
+                    result= BlocProvider.of<CalculateCubit>(context).calculateBmiMethode(
+                        weight: BlocProvider.of<WeightCubit>(context).weight,
+                        height:  BlocProvider.of<HeightCubit>(context).Height,
+                    );
+
+                  },
+                  child: const Text(
+                    "Calculate",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ), //calc button

@@ -3,6 +3,7 @@
 
 
 import 'package:bmiapp/Cubit/AgeCubit/Age_Cubit.dart';
+import 'package:bmiapp/Cubit/ClaculateCubit/Calculate_Cubit.dart';
 import 'package:bmiapp/Cubit/GenderCubit/Gender_Cubit.dart';
 import 'package:bmiapp/Cubit/HeightCubit/Height_Cubit.dart';
 import 'package:bmiapp/Cubit/WeightCubit/Weight_Cubit.dart';
@@ -19,6 +20,8 @@ void main() {
         BlocProvider(create: (context)=>WeightCubit()),
         BlocProvider(create: (context)=>HeightCubit()),
         BlocProvider(create:(context)=>GenderCubit() ),
+        BlocProvider(create:(context)=>CalculateCubit() ),
+
       ],
 
       child: MaterialApp(

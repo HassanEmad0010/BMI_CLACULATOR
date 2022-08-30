@@ -8,12 +8,14 @@ Widget floatingButton ({
   final VoidCallback? floatingFunction,
 
  required Icon? iconFloatingButton,
+  required String buttonTag,
 }
 
     )
 
 {
   return FloatingActionButton(
+    heroTag: buttonTag,
     mouseCursor: MouseCursor.defer,
     backgroundColor: Colors.indigoAccent,
     foregroundColor: Colors.black,
