@@ -5,10 +5,12 @@ import 'dart:math';
 
 import 'package:bmiapp/Cubit/AgeCubit/Age_Cubit.dart';
 import 'package:bmiapp/Cubit/AgeCubit/Age_State.dart';
+import 'package:bmiapp/Cubit/ClaculateCubit/CalculateStateState.dart';
+import 'package:bmiapp/Cubit/ClaculateCubit/Calculate_Cubit.dart';
 import 'package:bmiapp/Cubit/GenderCubit/Gender_Cubit.dart';
 import 'package:bmiapp/Cubit/GenderCubit/Gender_State.dart';
 import 'package:bmiapp/Cubit/HeightCubit/Height_Cubit.dart';
-import 'package:bmiapp/Cubit/HeightCubit/Weight_State.dart';
+import 'package:bmiapp/Cubit/HeightCubit/Height_State.dart';
 import 'package:bmiapp/Cubit/WeightCubit/Weight_Cubit.dart';
 import 'package:bmiapp/Cubit/WeightCubit/Weight_State.dart';
 import 'package:bmiapp/componants/componants.sharedcomponant/componant.dart';
@@ -17,13 +19,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'ResualtScreen.dart';
 
 class BMIapp extends StatelessWidget {
-  bool isMale = true;
+/*  bool isMale = true;
   double height = 120;
   int age = 0;
-  int weight = 60;
+  int weight = 60;*/
+   int result=0;
 
   @override
   Widget build(BuildContext context) {
+
+   /* bool isMale = BlocProvider.of<GenderCubit>(context).genderIsMale;
+    double height =  BlocProvider.of<HeightCubit>(context).Height;
+    int age = BlocProvider.of<AgeCubit>(context).num;
+    int weight = BlocProvider.of<WeightCubit>(context).weight;
+*/
+
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.menu),
@@ -165,7 +175,7 @@ class BMIapp extends StatelessWidget {
                               inactiveColor: Colors.blue,
                               activeColor: Colors.indigoAccent,
                               thumbColor: Colors.indigoAccent,
-                              value: height,
+                              value:  BlocProvider.of<HeightCubit>(context).Height,
                               max: 220,
                               min: 75,
                               onChanged: (value) {
@@ -298,29 +308,14 @@ class BMIapp extends StatelessWidget {
               color: Colors.blue,
               child: MaterialButton(
                 height: 50,
-                /*
-                      onPressed: (){
-                        Navigator.of(context).pushNamed('/settings');
-                      },*/
 
                 onPressed: () {
-                  double res = weight / pow(height / 100, 2);
-                  print("res is $res");
-                  int resInt = res.round();
-                  print("res int is $resInt");
 
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) {
-                      return ResultScreen(
-                          result: resInt, age: age, isMale: isMale);
-                    }),
+                  result= BlocProvider.of<CalculateCubit>(context).calculateBmiMethode(
+                      weight: BlocProvider.of<WeightCubit>(context).weight,
+                      height:  BlocProvider.of<HeightCubit>(context).Height,
                   );
-                  /*
-                        Navigator.push(context,
-                            MaterialPageRoute(builder:
-                            (context)=>ResultScreen(),
-                            ),
-                        );*/
+
                 },
                 child: const Text(
                   "Calculate",

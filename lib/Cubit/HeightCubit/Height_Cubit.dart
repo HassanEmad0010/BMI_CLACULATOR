@@ -1,7 +1,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'Weight_State.dart';
+import 'Height_State.dart';
 
 class HeightCubit extends Cubit<HeightState>{
 
@@ -14,16 +14,6 @@ class HeightCubit extends Cubit<HeightState>{
     emit(ChangingHeightState());
 
 
- /*   if (inc_dec =="I")
-      {
-        this.Height+=Height;
-      emit(ChangingHeightState());
-      }
-    else if (inc_dec =="D")
-      {
-        this.Height-=Height;
-        emit(ChangingHeightState());
-      }*/
 
   }
 

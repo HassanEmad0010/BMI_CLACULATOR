@@ -6,8 +6,8 @@ class WeightCubit extends Cubit<WeightState>{
 
   WeightCubit():super(InitialWeightState());
 
-  int weight=60;
-  void getWeight ({required int weight,required String inc_dec} ){
+  double weight=60;
+  void getWeight ({required double weight,required String inc_dec} ){
 
     if (inc_dec =="I")
       {
