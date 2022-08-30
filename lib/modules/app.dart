@@ -3,30 +3,29 @@
 //import 'package:flutter/cupertino.dart';
 import 'dart:math';
 
+import 'package:bmiapp/Cubit/AgeCubit/Age_Cubit.dart';
+import 'package:bmiapp/Cubit/AgeCubit/Age_State.dart';
+import 'package:bmiapp/Cubit/WeightCubit/Weight_Cubit.dart';
+import 'package:bmiapp/Cubit/WeightCubit/Weight_State.dart';
 import 'package:bmiapp/componants/componants.sharedcomponant/componant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'ResualtScreen.dart';
 
-class BMIapp extends StatefulWidget {
-  @override
-  State<BMIapp> createState() => _BMIappState();
-}
-
-class _BMIappState extends State<BMIapp> {
+class BMIapp extends StatelessWidget {
   bool isMale = true;
   double height = 120;
-  int age = 15;
+  int age = 0;
   int weight = 60;
 
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
-        appBar: AppBar(
-          leading: const Icon(Icons.menu),
-          title: const Text("BMI Calculator"),
-        ),
-        body: Column(
+    return Scaffold(
+      appBar: AppBar(
+        leading: const Icon(Icons.menu),
+        title: const Text("BMI Calculator"),
+      ),
+      body: Column(
           children: [
             Expanded(
               child: Row(
@@ -37,14 +36,13 @@ class _BMIappState extends State<BMIapp> {
                       padding: const EdgeInsets.all(20.0),
                       child: GestureDetector(
                         onTap: () {
-                          setState(() {
-                            isMale = true;
-                          });
+                          isMale = true;
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: isMale ? Colors.indigoAccent : Colors.grey[400],
+                            color:
+                                isMale ? Colors.indigoAccent : Colors.grey[400],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -74,14 +72,13 @@ class _BMIappState extends State<BMIapp> {
                       padding: const EdgeInsets.all(20.0),
                       child: GestureDetector(
                         onTap: () {
-                          setState(() {
-                            isMale = false;
-                          });
+                          isMale = false;
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: isMale ? Colors.grey[400] : Colors.indigoAccent,
+                            color:
+                                isMale ? Colors.grey[400] : Colors.indigoAccent,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -99,7 +96,6 @@ class _BMIappState extends State<BMIapp> {
                                     fontSize: 20,
                                     color: Colors.black),
                               ),
-
                             ],
                           ),
                         ),
@@ -152,14 +148,13 @@ class _BMIappState extends State<BMIapp> {
                         ],
                       ),
                       Slider(
-                        inactiveColor: Colors.blue,
-                          activeColor:Colors.indigoAccent ,
+                          inactiveColor: Colors.blue,
+                          activeColor: Colors.indigoAccent,
                           thumbColor: Colors.indigoAccent,
                           value: height,
                           max: 220,
                           min: 75,
                           onChanged: (value) {
-                            setState(() {});
                             height = value;
                             // print(value);
                           })
@@ -175,138 +170,112 @@ class _BMIappState extends State<BMIapp> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey[400],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Weight",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                  color: Colors.blueAccent),
-                            ),
 
-                            Text(
-                              "$weight",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 40,
-                                  color: Colors.black),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-
-                                floatingButton(
-                                  iconFloatingButton:Icon(Icons.remove),
-                                floatingFunction:(){
-                                    setState(() {
-                                      weight--;
-                                    });
-                                  } ,),
-
-
-
-
-
-                                const SizedBox(
-                                  width: 10,
-                                ),
-
-                                floatingButton(
-                                  iconFloatingButton: Icon(Icons.add),
-                                  floatingFunction: (){
-                                    setState(() {
-                                      weight++;
-                                    });
-                                  },
-
-                                ),
-
-                              ],
-                            ),
-                          ],
+                    BlocBuilder<WeightCubit,WeightState>(
+                      builder:(context,state)=> Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey[400],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Weight",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    color: Colors.blueAccent),
+                              ),
+                              Text(
+                                "${BlocProvider.of<WeightCubit>(context).weight}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 40,
+                                    color: Colors.black),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  floatingButton(
+                                    iconFloatingButton: Icon(Icons.remove),
+                                    floatingFunction: () {
+                                     BlocProvider.of<WeightCubit>(context).getWeight(weight: 1, inc_dec: "D");
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  floatingButton(
+                                    iconFloatingButton: Icon(Icons.add),
+                                    floatingFunction: () {
+                                      BlocProvider.of<WeightCubit>(context).getWeight(weight: 1, inc_dec: "I");
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                    ), //for weight cubit, state
                     const SizedBox(
                       width: 30,
                     ),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey[400],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Age",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                  color: Colors.blueAccent),
-                            ),
-                            Text(
-                              "$age",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 40,
-                                  color: Colors.black),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                floatingButton(
-                                iconFloatingButton: Icon(Icons.remove),
-                                  floatingFunction: (){
-                                  setState(() {
-                                    age--;
-                                  });
-                                  },
-
-                                ),
-
-
-                                const SizedBox(
-                                  width: 10,
-                                ),
-
-                                floatingButton(
-                                    iconFloatingButton :Icon(Icons.add),
-
-                                    floatingFunction:(){
-                                      setState(() {
-                                        age++;
-                                      });
+                    BlocBuilder<AgeCubit,AgeState>(
+                      builder: (context,state)=>Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey[400],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Age",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    color: Colors.blueAccent),
+                              ),
+                              Text(
+                                "${BlocProvider.of<AgeCubit>(context).num}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 40,
+                                    color: Colors.black),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  floatingButton(
+                                    iconFloatingButton: Icon(Icons.remove),
+                                    floatingFunction: () {
+                                      BlocProvider.of<AgeCubit>(context).getAge(number: 1, inc_dec: "D");
                                     },
-
-
-
-                                ),
-
-
-                              ],
-                            ),
-                          ],
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  floatingButton(
+                                    iconFloatingButton: Icon(Icons.add),
+                                    floatingFunction: () {
+                                     BlocProvider.of<AgeCubit>(context).getAge(number: 1, inc_dec: "I");
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    )
+                    )        // for age cubit, state
                   ],
                 ),
               ),
             ), //weight age
-
-
-
-
 
             Container(
               width: double.infinity,
@@ -314,31 +283,28 @@ class _BMIappState extends State<BMIapp> {
               child: MaterialButton(
                 height: 50,
                 /*
-                  onPressed: (){
-                    Navigator.of(context).pushNamed('/settings');
-                  },*/
+                      onPressed: (){
+                        Navigator.of(context).pushNamed('/settings');
+                      },*/
 
                 onPressed: () {
-                  double res = weight / pow(height/100, 2);
+                  double res = weight / pow(height / 100, 2);
                   print("res is $res");
-                 int resInt = res.round();
+                  int resInt = res.round();
                   print("res int is $resInt");
-
 
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) {
                       return ResultScreen(
-                          result: resInt,
-                          age: age,
-                          isMale: isMale);
+                          result: resInt, age: age, isMale: isMale);
                     }),
                   );
                   /*
-                    Navigator.push(context,
-                        MaterialPageRoute(builder:
-                        (context)=>ResultScreen(),
-                        ),
-                    );*/
+                        Navigator.push(context,
+                            MaterialPageRoute(builder:
+                            (context)=>ResultScreen(),
+                            ),
+                        );*/
                 },
                 child: const Text(
                   "Calculate",
@@ -348,7 +314,7 @@ class _BMIappState extends State<BMIapp> {
             ), //calc button
           ],
         ),
-      );
 
+    );
   }
 }
