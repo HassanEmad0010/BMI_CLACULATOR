@@ -1,7 +1,9 @@
 
 //test git hub first editing in the code
 
+
 import 'package:bmiapp/Cubit/AgeCubit/Age_Cubit.dart';
+import 'package:bmiapp/Cubit/GenderCubit/Gender_Cubit.dart';
 import 'package:bmiapp/Cubit/HeightCubit/Height_Cubit.dart';
 import 'package:bmiapp/Cubit/WeightCubit/Weight_Cubit.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ void main() {
         BlocProvider(create: (context)=>AgeCubit()),
         BlocProvider(create: (context)=>WeightCubit()),
         BlocProvider(create: (context)=>HeightCubit()),
+        BlocProvider(create:(context)=>GenderCubit() ),
       ],
 
       child: MaterialApp(

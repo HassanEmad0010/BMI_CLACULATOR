@@ -7,10 +7,14 @@ class HeightCubit extends Cubit<HeightState>{
 
   HeightCubit():super(InitialHeightState());
 
-  int Height=0;
-  void getHeight ({required int Height,required String inc_dec} ){
+  double Height=170;
+  void getHeight ({required double Height,required String inc_dec} ){
 
-    if (inc_dec =="I")
+    this.Height= Height;
+    emit(ChangingHeightState());
+
+
+ /*   if (inc_dec =="I")
       {
         this.Height+=Height;
       emit(ChangingHeightState());
@@ -19,7 +23,7 @@ class HeightCubit extends Cubit<HeightState>{
       {
         this.Height-=Height;
         emit(ChangingHeightState());
-      }
+      }*/
 
   }
 

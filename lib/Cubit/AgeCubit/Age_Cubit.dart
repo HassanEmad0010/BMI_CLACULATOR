@@ -7,7 +7,7 @@ class AgeCubit extends Cubit<AgeState>{
 
 
 
-  int num=0;
+  int num=25;
 
 
   void getAge ({required int number, required inc_dec,})
