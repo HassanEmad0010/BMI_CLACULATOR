@@ -1,4 +1,5 @@
 
+import 'package:photo_view/photo_view.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +46,8 @@ Widget bmiInformation ()
 
       ),
 
-      width: 350,
-      height: 150,
+      width: double.infinity,
+      height: 400,
       child:
 
       Center(
@@ -54,33 +55,18 @@ Widget bmiInformation ()
 
 
             Column(
-              children: const [
-                Text("BMI", style: TextStyle(color: Colors.indigo,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 3,
+              children:  [
 
-                    fontSize: 16),),
+                Expanded(child:
+            PhotoView(
+              backgroundDecoration:BoxDecoration(
+                color: Colors.indigo,
+                backgroundBlendMode: BlendMode.difference,
+              ) ,
+                imageProvider: AssetImage("assets/photos/bmi.jpg"),
 
-
-        Text(
-
-          '<18.5 –> underweight range\n'
-              '18.5 - 24.9 –> healthy weight range\n'
-              '25  -  29.9 –> overweight range\n'
-              '30  -  39.9 –> obese range\n',
-          //textAlign: TextAlign.start,
-          textAlign: TextAlign.justify,
-
-
-
-          style: TextStyle(color: Colors.white70,
-              fontWeight: FontWeight.w500,
-
-              fontSize: 16),
-
-
-
-        ),
+                ),
+                ),
               ],
             ),
 
@@ -90,3 +76,43 @@ Widget bmiInformation ()
 
 }
 
+Widget buildContainer ({
+
+  Color color=Colors.brown,
+  required String text,
+  double width=double.infinity,
+  double height=180,
+  BoxShape shape= BoxShape.rectangle,
+ // bool isLink =false,
+
+})
+
+{
+
+  return
+      Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          shape:shape,
+          color: color,
+        ),
+
+
+        child:  Center(child: Text(text,
+          style: const TextStyle(fontSize: 30,
+            fontWeight: FontWeight.w400,
+            letterSpacing: 3,
+            color: Colors.white60,
+
+
+
+          ),)),
+
+
+      );
+
+
+
+
+}

@@ -3,6 +3,7 @@
 //import 'package:flutter/cupertino.dart';
 import 'dart:math';
 
+import 'package:backdrop/backdrop.dart';
 import 'package:bmiapp/Cubit/AgeCubit/Age_Cubit.dart';
 import 'package:bmiapp/Cubit/AgeCubit/Age_State.dart';
 import 'package:bmiapp/Cubit/ClaculateCubit/CalculateStateState.dart';
@@ -19,27 +20,48 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'ResualtScreen.dart';
 
 class BMIapp extends StatelessWidget {
-/*  bool isMale = true;
-  double height = 120;
-  int age = 0;
-  int weight = 60;*/
-   int result=0;
+
+   num result=0;
+
 
   @override
   Widget build(BuildContext context) {
 
-   /* bool isMale = BlocProvider.of<GenderCubit>(context).genderIsMale;
-    double height =  BlocProvider.of<HeightCubit>(context).Height;
-    int age = BlocProvider.of<AgeCubit>(context).num;
-    int weight = BlocProvider.of<WeightCubit>(context).weight;
-*/
+String text="BMI Calculator";
+Text textmine= Text(
+  text ,style: TextStyle(color: Colors.white60,letterSpacing: 4),);
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(Icons.menu),
-        title: const Text("BMI Calculator"),
+    return BackdropScaffold(
+      appBar:
+      BackdropAppBar(
+        title:  textmine,
+        centerTitle: true,
+        actions: const <Widget>[
+          BackdropToggleButton(
+            icon: AnimatedIcons.list_view,
+          ),
+        ],
       ),
-      body: Column(
+      backLayer: Center(
+        child:
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              buildContainer(text: "Welcome",height:160, color: Colors.indigo),
+              buildContainer(text: "For More Apps",height:160, color: Colors.blue),
+              buildContainer(text: "My Git Hub: HassanEmad0010",height:160, color: Colors.indigo),
+              buildContainer(text: "Hassan", color: Colors.blue,),
+              buildContainer(text: "Emad",height:160, color: Colors.indigo),
+
+            ],
+          ),
+        ),
+      ),
+
+      frontLayer: Center(
+        child:
+
+      Column(
           children: [
             BlocBuilder<GenderCubit,GenderState>(
               builder:(context,state)=> Expanded(
@@ -311,17 +333,35 @@ class BMIapp extends StatelessWidget {
             ), //weight age
 
             BlocListener<CalculateCubit,CalculateState>(
-              listener: (BuildContext context,CalculateState state) {
+              listener: (BuildContext context,CalculateState state) async {
                 if(state is InitialCalculateState)
-                  {
+                   {
                     print("intial state");
                   }
                 else if (state is ReloadCalculateState)
                   {
                     print("reload state");
+
+                  }
+                else if(state is FailedCalculateState)
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                        content: Text("Error in your Numbers"),
+                      action: SnackBarAction(
+                        onPressed: (){},
+                        label: "Undo",
+
+
+                      ),
+
+                    ));
+                        
+
+                        
                   }
                 else if(state is NavigationCalculateState)
                   {
+
                     print("Navigation state");
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) {
@@ -332,21 +372,28 @@ class BMIapp extends StatelessWidget {
                         );
                       }),
                     );
+
                   }
 
 
               },
-              child: Container(
+              child:
+             BlocProvider.of<CalculateCubit>(context).isReload?
+             LinearProgressIndicator():
+
+              Container(
                 width: double.infinity,
                 color: Colors.blue,
                 child: MaterialButton(
                   height: 50,
 
-                  onPressed: () {
+                  onPressed: () async {
 
-                    result= BlocProvider.of<CalculateCubit>(context).calculateBmiMethode(
+                    result=await BlocProvider.of<CalculateCubit>(context).calculateBmiMethode(
+                      age: BlocProvider.of<AgeCubit>(context).num,
                         weight: BlocProvider.of<WeightCubit>(context).weight,
                         height:  BlocProvider.of<HeightCubit>(context).Height,
+
                     );
 
                   },
@@ -359,7 +406,7 @@ class BMIapp extends StatelessWidget {
             ), //calc button
           ],
         ),
-
+      ),
     );
   }
 }

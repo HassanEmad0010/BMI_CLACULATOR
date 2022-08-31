@@ -4,7 +4,7 @@ import '../componants/componants.sharedcomponant/componant.dart';
 
 class ResultScreen extends StatelessWidget {
 
-  final int result;
+  final num result;
   final bool isMale;
   final int age;
 
@@ -29,92 +29,93 @@ class ResultScreen extends StatelessWidget {
 
         body:
           Container(
+            padding: EdgeInsets.only(top: 30),
             decoration: BoxDecoration(color: Colors.lightBlueAccent),
 
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+            child: Column(
+
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
 
 
 
-                  LinearProgressIndicator(),
-                  Container(
-                    height: 200,
+                Container(
+                  height: 200,
 
-                    decoration: const BoxDecoration(
-                      color: Colors.lightBlue,
-                      shape: BoxShape.rectangle,
+                  decoration: const BoxDecoration(
+                    color: Colors.lightBlue,
+                    shape: BoxShape.rectangle,
 
-
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Gender: ${isMale? 'Male' : 'Female'}  "  ,style:
-                          const TextStyle(fontSize:30 ,color: Colors.white,),),
-                          Text("Your age is: $age ",style:
-                          const TextStyle(fontSize:30,fontWeight: FontWeight.w400 ,color: Colors.white),),
-                          Text("Your BMI is: $result ",style:
-                          const TextStyle(fontSize:30,fontWeight: FontWeight.w400,color: Colors.white ),),
-                        ],
-                      ),
-                    ),
-                  ),
-const                   LinearProgressIndicator(),
-                  const SizedBox(height: 30,
 
                   ),
+                  child: Center(
+                    child:
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Gender: ${isMale? 'Male' : 'Female'}  "  ,style:
+                        const TextStyle(fontSize:30 ,color: Colors.white,),),
+                        Text("Your age is: $age ",style:
+                        const TextStyle(fontSize:30,fontWeight: FontWeight.w400 ,color: Colors.white),),
+                        Text("Your BMI is: $result ",style:
+                        const TextStyle(fontSize:30,fontWeight: FontWeight.w400,color: Colors.white ),),
+                      ],
+                    ),
+                  ),
+                ),
+//const                   LinearProgressIndicator(),
+                const SizedBox(height: 30,
+
+                ),
 
 
 
 
-                  ElevatedButton(
-                    child: const Text('What is this?'),
-                    onPressed: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: 300,
-                            color: Colors.indigoAccent,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Column(
-                                    children: [
-                                      bmiInformation(),
-                                      ElevatedButton(
-                                        child: const Text('Close'),
-                                        onPressed: () => Navigator.pop(context),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
+                ElevatedButton(
+                  child: const Text('What is this?'),
+                  onPressed: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 900,
+                          color: Colors.indigoAccent,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Column(
+                                  children: [
+                                    bmiInformation(),
+                                    ElevatedButton(
+                                      child: const Text('Close'),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                          );
-                        },
-                      );
-                    },
-                  ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
 
 
 
 
 
-                  //BMI referance
+                //BMI referance
 
 
 
 
 
 
-                ],
-              ),
+              ],
             ),
           ),
 

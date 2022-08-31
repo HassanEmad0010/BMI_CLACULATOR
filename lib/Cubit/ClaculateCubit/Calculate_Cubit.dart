@@ -8,15 +8,31 @@ import 'CalculateStateState.dart';
 class CalculateCubit extends Cubit<CalculateState>{
   CalculateCubit():super(InitialCalculateState());
 
+  bool  isReload=false;
 
-  int calculateBmiMethode ({required double height, required double weight,})
-  {
+
+  Future<num> calculateBmiMethode ({required double height, required double weight, required age,})
+  async{
+    isReload=true;
+    print("reload 500");
     emit(ReloadCalculateState());
-    double res = weight / pow(height / 100, 2);
-    int resInt = res.round();
-    emit(NavigationCalculateState());
-    return resInt;
+    Future.delayed(const Duration(seconds: 5));
+    print("reload after 500");
 
+    if (weight>=30&& age >=4) {
+      double res = weight / pow(height / 100, 2);
+      int resInt = res.round();
+      isReload=false;
+      emit(NavigationCalculateState());
+      return resInt;
+    }
+    else
+      {
+        isReload=false;
+        emit(FailedCalculateState());
+        return weight;
+
+      }
 
   }
 
